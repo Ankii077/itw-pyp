@@ -1,4 +1,5 @@
 import lifestyle.general
+import ankii_math.conversions
 
 print('--------------Utility Tools--------------')
 print('---------------by Ankii077---------------')
@@ -17,10 +18,12 @@ try:
                                   input('weight (in kg): '), input('age: '))
         elif cmd == 'age':
             lifestyle.general.age(input('age (DD-MM-YYYY): '))
+        elif cmd == 'uc':
+            ankii_math.conversions.uc()
         elif cmd == 'help':
             print('help.exe stopped working')
         else:
             print(repr(cmd), ': command not found', sep='')
             pass
-except KeyboardInterrupt:
+except (KeyboardInterrupt, EOFError):
     print()

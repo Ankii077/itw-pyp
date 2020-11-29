@@ -1,5 +1,6 @@
 import lifestyle.general
 import ankii_math.conversions
+import application.general
 
 print('--------------Utility Tools--------------')
 print('---------------by Ankii077---------------')
@@ -21,7 +22,7 @@ try:
         elif cmd == 'uc':
             ankii_math.conversions.uc()
         elif cmd == 'help':
-            print('help.exe stopped working')
+            application.general.print_help()
         else:
             print(repr(cmd), ': command not found', sep='')
             pass

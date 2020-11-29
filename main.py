@@ -18,7 +18,7 @@ try:
             lifestyle.general.bmi(input('height (in cm): '),
                                   input('weight (in kg): '), input('age: '))
         elif cmd == 'age':
-            lifestyle.general.age(input('age (DD-MM-YYYY): '))
+            lifestyle.general.age(input('DOB (DD-MM-YYYY): '))
         elif cmd == 'uc':
             ankii_math.conversions.uc()
         elif cmd == 'help':

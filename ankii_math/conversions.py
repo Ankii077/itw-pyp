@@ -48,3 +48,13 @@ def uc():
         pass
     else:
         print('unsupported conversion')
+
+
+def hex_pat(file: str):
+    print("File:", file)
+    with open(file, 'rb') as f:
+        while True:
+            data = f.read(20)
+            if not data:
+                break
+            print(data.hex(sep=' ', bytes_per_sep=1))

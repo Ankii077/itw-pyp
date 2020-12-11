@@ -21,6 +21,8 @@ try:
             lifestyle.general.age(input('DOB (DD-MM-YYYY): '))
         elif cmd == 'uc':
             ankii_math.conversions.uc()
+        elif cmd == 'bin':
+            ankii_math.conversions.hex_pat('main.py')
         elif cmd == 'help':
             application.general.print_help()
         else:

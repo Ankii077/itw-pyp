@@ -16,6 +16,10 @@ def uc_len(mod: float, in_unit: str, out_unit: str) -> str:
             return f'{mod}m'
         elif out_unit == 'km':
             return f'{mod / 1000:.2f}km'
+        elif out_unit == 'f':
+            total_inches = mod * 39.37
+            feet, inches = int(total_inches // 12), total_inches % 12
+            return f'{feet}\'{inches:.0f}\"'
     elif in_unit == 'km':
         pass
     else:

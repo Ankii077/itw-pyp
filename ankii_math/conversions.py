@@ -6,10 +6,18 @@ class AnkiiError(Exception):
 
 
 def uc_len(mod: float, in_unit: str, out_unit: str) -> str:
+    valid_units = ['m', 'km', 'f', 'y']
+    if not out_unit in valid_units:
+    	raise AnkiiError
     if in_unit == 'm':
-        return f'{mod / 1000:.2f}km'
+    	# out_unit conv
+        res = 0
+        if out_unit == 'm':
+            return f'{mod}m'
+        elif out_unit == 'km':
+            return f'{mod / 1000:.2f}km'
     elif in_unit == 'km':
-        return f'{mod * 1000:.2f}m'
+        pass
     else:
         raise AnkiiError
 

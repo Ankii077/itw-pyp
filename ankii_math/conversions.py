@@ -21,7 +21,14 @@ def uc_len(mod: float, in_unit: str, out_unit: str) -> str:
         elif out_unit == 'y':
             return f'{mod * 1.094:.2f} yards'
     elif in_unit == 'km':
-        pass
+        if out_unit == 'm':
+            return f'{mod * 1000}m'
+        elif out_unit == 'km':
+            return f'{mod}'
+        elif out_unit == 'f':
+            return uc_len(mod * 1000, 'm', 'f')
+        elif out_unit == 'y':
+            return uc_len(mod * 1000, 'm', 'y')
     else:
         raise AnkiiError
 

@@ -50,17 +50,18 @@ def uc_len(mod: float, in_unit: str, out_unit: str) -> str:
 
 def uc_digital(mod: float, in_unit: str, out_unit: str) -> str:
     valid_units = ['b', 'B', 'KB', 'MB', 'GB']
+    print('DE:', mod, in_unit, out_unit)
     if out_unit not in valid_units:
         raise AnkiiError
     if in_unit == 'b':
         if out_unit == 'b':
             return f'{mod}b'
         elif out_unit == 'B':
-            return f'{mod * 8:.0f}B'
+            return f'{mod / 8:.0f}B'
         elif out_unit == 'KB':
-            return f'{mod * 8 / 1024:.2f}'
+            return f'{mod / 8 / 1024:.2f}'
         elif out_unit == 'MB':
-            return
+            return f'{mod / 8 / 1024 / 1024:.2f}'
     # TODO: implement all conversions
     elif in_unit == 'km':
         if out_unit == 'm':

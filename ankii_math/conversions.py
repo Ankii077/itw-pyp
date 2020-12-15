@@ -5,6 +5,21 @@ class AnkiiError(Exception):
     pass
 
 
+def get_info(msg: str, prmtp: str, supp_types: str) -> (float, str, str):
+    print(msg)
+    in_str = input('> ')
+    try:
+        in_val = float(re.split('[^.0-9]', in_str)[0])
+    except ValueError:
+        print('unable to parse input')
+        raise AnkiiError
+    in_unit = re.split('\\d', in_str)[-1]
+    print(prmtp)
+    print(supp_types)
+    out_unit = input('>')
+    return in_val, in_unit, out_unit
+
+
 def uc_len(mod: float, in_unit: str, out_unit: str) -> str:
     valid_units = ['m', 'km', 'f', 'y']
     if out_unit not in valid_units:
@@ -29,6 +44,50 @@ def uc_len(mod: float, in_unit: str, out_unit: str) -> str:
             return uc_len(mod * 1000, 'm', 'f')
         elif out_unit == 'y':
             return uc_len(mod * 1000, 'm', 'y')
+    # TODO: implement all conversions
+    else:
+        raise AnkiiError
+
+
+def uc_digital(mod: float, in_unit: str, out_unit: str) -> str:
+    valid_units = ['b', 'B', 'KB', 'MB', 'GB']
+    print('DE:', mod, in_unit, out_unit)
+    if out_unit not in valid_units:
+        raise AnkiiError
+    if in_unit == 'b':
+        if out_unit == 'b':
+            return f'{mod}b'
+        elif out_unit == 'B':
+            return f'{mod / 8:.0f}B'
+        elif out_unit == 'KB':
+            return f'{mod / 8 / 1024:.2f}'
+        elif out_unit == 'MB':
+            return f'{mod / 8 / 1024 / 1024:.2f}'
+        elif out_unit == 'GB':
+            return f'{mod / 8 / 1024 / 1024 / 1024:.2f}'
+    elif in_unit == 'B':
+        if out_unit == 'b':
+            return f'{int(mod * 8)}b'
+        elif out_unit == 'B':
+            return f'{mod}B'
+        elif out_unit == 'KB':
+            return f'{mod / 1024:.2f}KB'
+        elif out_unit == 'MB':
+            return f'{mod / 1024 / 1024:.2f}MB'
+        elif out_unit == 'GB':
+            return f'{mod / 1024 / 1024 / 1024:.2f}GB'
+    elif in_unit == 'KB':
+        if out_unit == 'b':
+            return f'{int(mod * 8 * 1024)}b'
+        elif out_unit == 'B':
+            return f'{mod * 1024}B'
+        elif out_unit == 'KB':
+            return f'{mod:.2f}KB'
+        elif out_unit == 'MB':
+            return f'{mod / 1024:.2f}MB'
+        elif out_unit == 'GB':
+            return f'{mod / 1024 / 1024:.2f}GB'
+    # TODO: implement all conversions
     else:
         raise AnkiiError
 
@@ -39,34 +98,35 @@ def uc():
     print('\'weight\' for weight conversions')
     print('\'currency\' for currency conversions')
     t_cov = input('type of conversion: ')
-    if t_cov == 'length':
-        print('enter value followed by unit in lowercase\n'
-              'for example: 13m or 24km')
-        in_str = input('> ')
-        try:
-            in_val = float(re.split('[^.0-9]', in_str)[0])
-        except ValueError:
-            print('unable to parse input')
-            return
-        in_unit = re.split('\\d', in_str)[-1]
-        print('convert to?')
-        print('m\t:meter')
-        print('km\t:kilo meter')
-        print('f\t:feet')
-        print('y\t:yard')
-        out_unit = input('>')
-        try:
-            res = uc_len(in_val, in_unit, out_unit)
-        except AnkiiError:
-            print('An error occurred')
-            return
-        print(res)
-    elif t_cov == 'weight':
-        pass
-    elif t_cov == 'currency':
-        pass
-    else:
-        print('unsupported conversion')
+    try:
+        res = ''
+        if t_cov == 'length':
+            info = get_info('enter value followed by unit in lowercase\n'
+                            'for example: 13m or 24km', 'convert to?',
+                            'm\t:meter\n' 'km\t:kilo meter\n' 'f\t:feet\n' 'y\t:yard\n')
+            res = uc_len(*info)
+        elif t_cov == 'weight':
+            pass
+        elif t_cov == 'currency':
+            pass
+        elif t_cov == 'weight':
+            pass
+        elif t_cov == 'currency':
+            pass
+        elif t_cov == 'digital':
+            info = get_info('enter value followed by unit in lowercase\n'
+                            'for example: 13b, 23B, 13B, 24KB, 13.8MB'
+                            '(b: bits, B: Bytes, All other prefix are in uppercase)',
+                            'convert to?',
+                            'b\t:bits\n' 'KB\t:kilo bytes\n' 'MB\t:mega bytes\n' 'GB\t:giga bytes\n')
+            res = uc_digital(*info)
+        else:
+            print('unsupported conversion')
+        if res != '':
+            print(res)
+    except AnkiiError:
+        print('An error occurred')
+        return
 
 
 def hex_pat(file: str):
@@ -84,4 +144,3 @@ def hex_pat(file: str):
                 print('\033[0;31m', end='')
             print(data.hex(sep=' ', bytes_per_sep=1))
     print('\033[0m')
-

@@ -44,6 +44,7 @@ def uc_len(mod: float, in_unit: str, out_unit: str) -> str:
             return uc_len(mod * 1000, 'm', 'f')
         elif out_unit == 'y':
             return uc_len(mod * 1000, 'm', 'y')
+    # TODO: implement all conversions
     else:
         raise AnkiiError
 
@@ -62,16 +63,31 @@ def uc_digital(mod: float, in_unit: str, out_unit: str) -> str:
             return f'{mod / 8 / 1024:.2f}'
         elif out_unit == 'MB':
             return f'{mod / 8 / 1024 / 1024:.2f}'
+        elif out_unit == 'GB':
+            return f'{mod / 8 / 1024 / 1024 / 1024:.2f}'
+    elif in_unit == 'B':
+        if out_unit == 'b':
+            return f'{int(mod * 8)}b'
+        elif out_unit == 'B':
+            return f'{mod}B'
+        elif out_unit == 'KB':
+            return f'{mod / 1024:.2f}KB'
+        elif out_unit == 'MB':
+            return f'{mod / 1024 / 1024:.2f}MB'
+        elif out_unit == 'GB':
+            return f'{mod / 1024 / 1024 / 1024:.2f}GB'
+    elif in_unit == 'KB':
+        if out_unit == 'b':
+            return f'{int(mod * 8 * 1024)}b'
+        elif out_unit == 'B':
+            return f'{mod * 1024}B'
+        elif out_unit == 'KB':
+            return f'{mod:.2f}KB'
+        elif out_unit == 'MB':
+            return f'{mod / 1024:.2f}MB'
+        elif out_unit == 'GB':
+            return f'{mod / 1024 / 1024:.2f}GB'
     # TODO: implement all conversions
-    elif in_unit == 'km':
-        if out_unit == 'm':
-            return
-        elif out_unit == 'km':
-            return
-        elif out_unit == 'f':
-            return
-        elif out_unit == 'y':
-            return
     else:
         raise AnkiiError
 

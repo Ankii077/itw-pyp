@@ -87,6 +87,17 @@ def uc_digital(mod: float, in_unit: str, out_unit: str) -> str:
             return f'{mod / 1024:.2f}MB'
         elif out_unit == 'GB':
             return f'{mod / 1024 / 1024:.2f}GB'
+    elif in_unit == 'MB':
+        if out_unit == 'b':
+            return f'{int(mod * 8 * 1024 * 1024)}b'
+        elif out_unit == 'B':
+            return f'{mod * 1024 * 1024}B'
+        elif out_unit == 'KB':
+            return f'{mod * 1024:.2f}KB'
+        elif out_unit == 'MB':
+            return f'{mod:.2f}MB'
+        elif out_unit == 'GB':
+            return f'{mod / 1024:.2f}GB'
     # TODO: implement all conversions
     else:
         raise AnkiiError

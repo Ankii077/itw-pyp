@@ -108,6 +108,7 @@ def uc():
     print('\'length\' for length conversions')
     print('\'weight\' for weight conversions')
     print('\'currency\' for currency conversions')
+    print('\'digital\' for digital conversions')
     t_cov = input('type of conversion: ')
     try:
         res = ''

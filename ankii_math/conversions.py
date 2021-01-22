@@ -16,7 +16,7 @@ def get_info(msg: str, prmtp: str, supp_types: str) -> (float, str, str):
     in_unit = re.split('\\d', in_str)[-1]
     print(prmtp)
     print(supp_types)
-    out_unit = input('>')
+    out_unit = input('> ')
     return in_val, in_unit, out_unit
 
 

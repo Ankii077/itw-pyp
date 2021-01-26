@@ -4,4 +4,4 @@ def print_help():
     print('bmi\t: calculate BMI (Body-Mass-Index)')
     print('age\t: calculate age')
     print('uc\t: unit conversion utility')
-    print('bin\t: show hex patterns of file')
+    print('hex\t: show hex patterns of file')
